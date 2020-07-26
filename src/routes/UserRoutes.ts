@@ -19,12 +19,6 @@ export const userRoutes = [
     validations: UserValidations.createOneUser,
     action: UserController.saveUser
   },
-  {
-    path: '/user/:userId/update',
-    method: 'post',
-    validations: UserValidations.updateUser,
-    action: UserController.updateUser
-  },
 
   // Other list
   {
