@@ -39,25 +39,6 @@ export const saveUser = async (req: Request, res: Response) => {
     }
 };
 
-
-export const updateUser = async (req: Request, res: Response) => {
-    try {
-        const { userId } = req.params;
-        const userData = req.body;
-        console.log(userData);
-        const userRepo = getManager().getRepository(User);
-        const user = await userRepo.findOne(userId);
-        if (!user) throw new Error(`No existe ususario con id: ${userId}`);
-
-        const data = await userRepo.update(userId, userData);
-        return res.status(200).json({ data });
-    } catch (error) {
-        console.error('USER_addElectroToUser:', error.message);
-        return res.status(422).json({ error: true, message: error.message });        
-    }
-};
-
-
 export const getCities = async (req: Request, res: Response) => {
     try {
         const cities = [
@@ -69,42 +50,5 @@ export const getCities = async (req: Request, res: Response) => {
     } catch (error) {
         console.error('USER_addElectroToUser:', error.message);
         return res.status(422).json({ error: true, message: error.message });        
-    }
-};
-
-
-export const getUserByName = async (userName) => {    
-    try {
-        console.log(userName);
-        if (!userName) return `No reconozco el nombre ${userName} entre los usuarios habilitados para darme ordenes... Quisiera validar con tu cédula para saber si estas registrado. ¿Cual es tu número de cédula?`;
-        const userRepo = getManager().getRepository(User);
-        const user = await userRepo.createQueryBuilder()
-            .select()
-            .where('firstName = :firstName', { firstName: userName.toLowerCase() })
-            .getMany();
-        console.log({user});
-        if(!user.length) return `No reconozco el nombre ${userName} entre los usuarios habilitados para darme ordenes... Quisiera validar con tu cédula para saber si estas registrado. ¿Cual es tu número de cédula?`;
-        if (user.length > 1) return `Disculpame ${userName} tengo mas de un usuario con ese nombre, puedes indicarme tu número de cédula por favor...`;
-        return `Hola ${userName} gracias por utilizarme, que puedo hacer por ti...`;
-    } catch (error) {
-        console.error('USERS_getUsers:', error.message);
-        return error.message;
-    }
-};
-
-export const getUserByDocument = async (document) => {    
-    try {        
-        if (!document) return `No reconozco el documento numero: ${document} como documento de un usuario registrado, por favor habla con el administrador de la aplicación para que te registre, o intenta otra vez indicando tu apellido`;
-        const userRepo = getManager().getRepository(User);
-        const user = await userRepo.createQueryBuilder()
-            .select()
-            .where('document = :document', { document })
-            .getMany();
-        console.log({user});
-        if(!user.length) return `No reconozco el documento numero: ${document} como documento de un usuario registrado, por favor habla con el administrador de la aplicación para que te registre, o intenta otra vez indicando tu apellido`
-        return `Hola ${user[0].firstName} ${user[0].lastName}, perdóname no te reconocía... gracias por utilizarme, que puedo hacer por ti...`;
-    } catch (error) {
-        console.error('USERS_getUsers:', error.message);
-        return error.message;
     }
 };
