@@ -1,8 +1,10 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import * as express from 'express';
+import { Request, Response } from 'express';
 import * as bodyParser from 'body-parser';
 
+import { validation } from './utils/validations/index';
 import { AppRoutes } from './routes';
 
 const http = require('http');
