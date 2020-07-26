@@ -1,5 +1,5 @@
 import * as UserController from '../controller/UserController';
-import * as UserValidations from '../utils/schemas/UserSchema';
+import * as UserValidations from '../utils/validations/schemes/UserScheme';
 export const userRoutes = [
   {
     path: '/user/all',
@@ -20,18 +20,6 @@ export const userRoutes = [
     action: UserController.saveUser
   },
   {
-    path: '/user/:userId/electro/:electroId',
-    method: 'post',
-    validations: UserValidations.addElectroToUser,
-    action: UserController.addElectroToUser
-  },
-  {
-    path: '/user/:userId/all-electros',
-    method: 'get',
-    validations: UserValidations.getAllElectros,
-    action: UserController.getElectrosByUserId
-  },
-  {
     path: '/user/:userId/update',
     method: 'post',
     validations: UserValidations.updateUser,
@@ -44,11 +32,5 @@ export const userRoutes = [
     method: 'get',
     validations: [],
     action: UserController.getCities
-  },
-  {
-    path: '/estadios/all',
-    method: 'get',
-    validations: [],
-    action: UserController.getEstadios
   }
 ];
