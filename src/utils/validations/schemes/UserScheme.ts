@@ -1,5 +1,20 @@
 const Joi = require('@hapi/joi');
 
+// Get user validations
+const getUserByIdSchema = Joi.object({
+  userId: Joi.number().required()
+});
+
+export const getUserById = [
+  {
+    property: 'params',
+    schemas: [
+      getUserByIdSchema
+    ]
+  }
+]
+
+// Create user validations
 const createOneUserSchema = Joi.object({
   user: Joi.string().required(),
   firstName: Joi.string().required(),

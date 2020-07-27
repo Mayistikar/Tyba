@@ -34,5 +34,5 @@ export class User {
     pass: string;
 
     @Column()
-    auth: string;
+    token: string;
 }
