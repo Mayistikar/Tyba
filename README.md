@@ -7,6 +7,7 @@
 3. Install project
 4. Setup database settings inside `ormconfig.json` file
 5. Run project and get API into localhost:3000
+6. Requests postman documentation
 
 ## Guide
 
@@ -59,3 +60,6 @@ Setting database credentials into ormconfig.json, using this structure:
 ```
 ### 5. Run project and get API into localhost:3000
 - Run `npm start` command
+
+### 6. For request documentation.
+- visit: https://documenter.getpostman.com/view/5831053/T1DqgGa9?version=latest
