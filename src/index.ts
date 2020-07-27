@@ -27,14 +27,8 @@ createConnection().then(async connection => {
                 next(result.message);
             } else {
                 route.action(request, response)
-                    .then(() => { 
-                        console.info(`\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n`);
-                        console.info('Request:', request.url);
-                        console.info('Route:', route.path); 
-                        return next; 
-                    })
-                    .catch(err => next(err));
-                
+                    .then(() => { return next })
+                    .catch(err => next(err));                
             }
         });
     });
