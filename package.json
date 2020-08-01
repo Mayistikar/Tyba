@@ -3,8 +3,12 @@
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
-      "ts-node": "3.3.0",
+      "@types/jest": "^26.0.8",
       "@types/node": "^8.0.29",
+      "jest": "^26.2.2",
+      "supertest": "^4.0.2",
+      "ts-jest": "^26.1.4",
+      "ts-node": "3.3.0",
       "typescript": "3.3.3333"
    },
    "dependencies": {
@@ -20,6 +24,13 @@
       "typeorm": "0.2.25"
    },
    "scripts": {
-      "start": "ts-node src/index.ts"
+      "start": "ts-node src/index.ts",
+      "test": "jest"
+   },
+   "jest": {
+      "testEnvironment": "node",
+      "coveragePathIgnorePatterns": [
+         "/node_modules/"
+      ]
    }
 }

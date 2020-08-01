@@ -9,18 +9,18 @@ import { AppRoutes } from './routes';
 
 const http = require('http');
 const cors = require('cors');
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+export const server = http.createServer(app);
 
 createConnection().then(async connection => {
 
-    const app = express();
-    app.use(cors());
-    app.use(bodyParser.json());
-
-    const server = http.createServer(app);
 
     // Adding routes
     AppRoutes.forEach(route => {        
         app[route.method](route.path, (request: Request, response: Response, next: Function) => {
+            console.log({ route });
             const result = validation(route.validations, request);
             if (result.error) {
                 response.status(400).json(result);
