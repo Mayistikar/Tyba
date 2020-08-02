@@ -6,4 +6,4 @@ services:
   - mysql
 
 before_install:
-  - mysql -e "CREATE SCHEMA 'tyba' ;"
+  - mysql -e 'CREATE SCHEMA tyba ;'
