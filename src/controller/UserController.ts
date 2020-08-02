@@ -14,9 +14,9 @@ export const saveUser = async (req: Request, res: Response) => {
         const token = UserService.auth(`${user.pass}${new Date}`);
 
         const newUser = userRepo.create({ ...user, user: user.user.toLowerCase(), token });
-        const data = await userRepo.save(newUser);
+        const data = await userRepo.save(newUser) || 'User created';
 
-        return res.status(200).json({ data: User });
+        return res.status(200).json({ data });
     } catch (error) {
         console.error('USERS_saveUser:', error.message);
         return res.status(422).json({ error: true, message: error.message });
