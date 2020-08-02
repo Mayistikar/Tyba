@@ -1,7 +1,9 @@
 const request = require('supertest')
-const server = require('../server')
+const server = require('../server');
 
 const listen = server.listen;
+const close = server.close;
+let app;
 
 describe('Jest Configuration Works fine test', () => {
   it('should test that true === true', () => {
@@ -10,8 +12,14 @@ describe('Jest Configuration Works fine test', () => {
 })
 
 describe('Post Endpoints', () => {
+  afterAll(async (done) => {
+    await app.close();
+    await close();
+    done()
+  })
+
   it('should create a new user', async () => {
-    const app = await listen();
+    app = await listen();
     const res = await request(app)
       .post('/user/create')
       .send({
@@ -25,6 +33,7 @@ describe('Post Endpoints', () => {
         city: "Bogota",
         pass: "12345678"
       })
-    expect(res.statusCode).toEqual(200)
+    expect(res.statusCode).toEqual(200);
+    app.close();
   })
 })

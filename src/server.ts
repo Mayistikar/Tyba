@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, getConnection } from "typeorm";
 import * as express from 'express';
 import { Request, Response } from 'express';
 import * as bodyParser from 'body-parser';
@@ -18,7 +18,6 @@ const listen = async () => {
 
         await createConnection();
 
-        // const server = http.createServer(app);
         // Adding routes
         AppRoutes.forEach(route => {        
             app[route.method](route.path, (request: Request, response: Response, next: Function) => {
@@ -36,8 +35,7 @@ const listen = async () => {
     
         // run app
         const port = 3000; // process.env.TYBA_PORT;
-        app.listen(port);
-    
+        
         console.log(`
         .########.##....##.########.....###...
         ....##.....##..##..##.....##...##.##..
@@ -46,9 +44,10 @@ const listen = async () => {
         ....##.......##....##.....##.#########
         ....##.......##....##.....##.##.....##
         ....##.......##....########..##.....## 
-            `);
+        `);
         console.log(`Express application is up and running on port ${port}`);
-        return app;
+        return app.listen(port);
+        // return app;
     } catch (error) {
         console.error(error);
         return null;
@@ -56,9 +55,14 @@ const listen = async () => {
 
 };
 
+const close = async () => {
+  await getConnection().close();
+}
+
 module.exports = {
     getApp: () => app,
-    listen
+    listen,
+    close
 }
 
 // listen ();
