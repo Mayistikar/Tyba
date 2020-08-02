@@ -16,7 +16,7 @@ export const saveUser = async (req: Request, res: Response) => {
         const newUser = userRepo.create({ ...user, user: user.user.toLowerCase(), token });
         const data = await userRepo.save(newUser);
 
-        return res.status(200).json({ data });
+        return res.status(200).json({ data: User });
     } catch (error) {
         console.error('USERS_saveUser:', error.message);
         return res.status(422).json({ error: true, message: error.message });
