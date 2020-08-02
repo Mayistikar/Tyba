@@ -35,7 +35,7 @@ const listen = async () => {
         });
     
         // run app
-        const port = process.env.TYBA_PORT;
+        const port = 3000; // process.env.TYBA_PORT;
         app.listen(port);
     
         console.log(`
