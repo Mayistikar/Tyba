@@ -1,3 +1,11 @@
 language: node_js
 node_js:
   - 10
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'ALTER USER `root` IDENTIFIED WITH mysql_native_password BY `12345`;'
+  - mysql -e 'flush privileges;';
+  - mysql -e 'CREATE SCHEMA `tyba` ;'
