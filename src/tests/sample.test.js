@@ -1,5 +1,7 @@
 const request = require('supertest')
-const { server } = require('../index')
+const server = require('../server')
+
+const listen = server.listen;
 
 describe('Jest Configuration Works fine test', () => {
   it('should test that true === true', () => {
@@ -9,7 +11,8 @@ describe('Jest Configuration Works fine test', () => {
 
 describe('Post Endpoints', () => {
   it('should create a new user', async () => {
-    const res = await request(server)
+    const app = await listen();
+    const res = await request(app)
       .post('/user/create')
       .send({
         user: "TestUser",
@@ -23,6 +26,5 @@ describe('Post Endpoints', () => {
         pass: "12345678"
       })
     expect(res.statusCode).toEqual(200)
-    expect(res.body).toHaveProperty('post')
   })
 })
